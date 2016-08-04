@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<style>
+	
+</style>
+<script>
+(function(){
+
+
+	var xmlHttp;
+	var completeDiv;
+	var inputFiled;
+	var nameTable;
+	var nameTableBody;
+	function createXMLHttpRequest(){
+		if (window.XMLHttpRequest) {
+		xmlHttp=new XMLHttpRequest();
+		}
+	}
+	function initVars(){
+		inputFiled=document.getElementById("names");
+		completeDiv=document.getElementById("popup");
+		nameTable=document.getElementById("name_table");
+		nameTableBody=document.getElementById("name_table_body");
+	}
+	function findName(){
+		initVars();
+		if (inputFiled.value.length>0) {
+			createXMLHttpRequest();
+			var url="autocomplete?name="+escape(inputFiled.value);
+			xmlHttp.open(url,"GET",true);
+			xmlHttp.onreadystatechange=callback;
+			xmlHttp.send();
+		}
+		else{
+			clearName();
+		}
+
+	}
+	function callnack(){
+		if (xmlHttp.readyState==4) {
+			if (xmlHttp.status==200) {
+				var name=xmlHttp.responseXML.getElementsByTagName("name")[0].firstChild.date;
+				setNames=(xmlHttp.responseXML.getElementsByTagName("name"));
+		}
+		else if (xmlHttp.status==204){
+			clearName();
+		}
+	}
+	function setNames(names){
+		clearName();
+		var size=names.length;
+		setOfsets();
+		var row;
+		var cell;
+		var textNode;
+		for (var i = 0; i < size; i++) {
+			row=document.createElement("tr");
+			cell=document.createElement("td");
+			cell.onMouseout=function(){
+				this.className="mouseover";
+			}
+			cell.onmouseover=function(){
+				this.className="onmouseout";
+			}
+			cell.setAttribute('background','#ffa');
+		}
+
+	}
+
+})()
+</script>
+<body>
+	
+</body>
+</html>

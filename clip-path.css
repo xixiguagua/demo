@@ -1,0 +1,42 @@
+
+//参数为对应顶点的xy坐标轴，这是个三角形
+.path{
+	clip-path: polygon(5px 10px, 16px 3px,16px 17px)
+}
+//引用内联SVG
+.element { clip-path: polygon(0 100%, 0 0, 100% 0, 80% 100%); }
+.element { clip-path: url("#clip-shape"); }
+//完整版
+.element {
+  -webkit-clip-path: polygon(0 100%, 0 0, 100% 0, 80% 100%);
+  clip-path: polygon(0 100%, 0 0, 100% 0, 80% 100%);
+  -webkit-clip-path: url("#clip-shape"); /* 在Webkit或Blink浏览器中需要添加，如果你只使用内联SVGclipping path，而不是CSS clip-path的话 */
+  clip-path: url("#clip-shape");
+}
+//写在HTML中
+<svg width="0" height="0">
+<defs>
+<clipPath id="clip-shape" clipPathUnits="objectBoundingBox">
+<polygon points="0 1,0 0,1 0,0.8 1"/>
+</clipPath>
+</defs>
+</svg>
+//创建一个响应式的SVG裁剪路径
+/* 设置SVG的width和height为0；
+在SVG中，为clipPath元素设置一个ID，以便被CSS引用。内联或外部的SVG都可以，注意浏览器支持问题；
+重复使用多边形CSSclip-path的百分比坐标值。只需将它们除以100，然后作为无单位的多边形顶点添加到SVG中。
+设置clipPathUnits属性的值为objectBoundingBox，这样clipping path就继承了引用了它的HTML元素的边界。 */
+//css3实现三角
+.test{width:0; height:0; border-width:20px 10px; border-style:solid; border-color:#ff3300 #ff3300 #ffffff #ffffff;}
+//梯形
+.test{width:10px; height:10px; border:10px solid; border-color:#ff3300 #ffffff #ffffff #ffffff;}
+//模拟圆角
+.box{width:500px;}
+.top{border-bottom:3px solid; border-top-color:#cc0000; border-bottom-color:#cc0000; border-left:3px dotted transparent; border-right:3px dotted transparent;}
+.center{padding:10px 20px; color:white; font-size:14px; background:#cc0000;}
+.bot{border-top:3px solid; border-top-color:#cc0000; border-bottom-color:#cccccc; border-left:3px dotted transparent; border-right:3px dotted transparent;}
+/* <div class="box">
+    <div class="top"></div>
+    <div class="center"></div>
+    <div class="bot"></div>
+</div> */
