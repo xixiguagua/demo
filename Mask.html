@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Mask fade out</title>
+    <style type="text/css">
+    .fade-out-target {
+        position: fixed;
+        right: 10px;
+        top: 50%;
+        margin-top: -75px;
+        width: 150px;
+        height: 150px;
+        line-height: 150px;
+        text-align: center;
+        border: 1px solid #aaa;
+    }
+    
+    .mask {
+        position: absolute;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        background-color: #000;
+        opacity: 0.75;
+        filter: alpha(opacity=75);
+    }
+    
+    .mask-pic {
+        position: fixed;
+        z-index: 1001;
+        margin: auto;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+    
+    .mask-panel {
+        z-index: 1002;
+        width: 641px;
+        height: 301px;
+        position: fixed;
+        margin: auto;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+    
+    .mask-panel .click {
+        background-color: #fff;
+        opacity: 0;
+        filter: alpha(opacity=0);
+        display: block;
+        width: 641px;
+        height: 301px;
+        position: fixed;
+        margin: auto;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+    
+    .mask-close {
+        background-color: #fff;
+        opacity: .5;
+        filter: alpha(opacity=0);
+        width: 39px;
+        height: 39px;
+        position: absolute;
+        margin: auto;
+        top: 0;
+        right: 0;
+        cursor: pointer;
+    }
+    </style>
+</head>
+
+<body>
+    <h2>首页显示Mask，不点击15秒后消失</h2>
+    <h3>
+		<a href="Mask2.html">second page with mask</a>
+	</h3>
+    <div id="target" class="fade-out-target" onclick="console.log('touch!!')">
+        target here!
+    </div>
+    <!-- mask -->
+    <div class="mask"></div>
+    <img class="mask-pic" src="images/task_1_6_1-(2)_03.jpg" alt="">
+    <div class="mask-panel">
+        <a target="_blank" href="www.baidu.com" class="click"></a>
+        <div class="mask-close"></div>
+    </div>
+    <!-- mask end -->
+    <script src="jquery-2.2.2.min.js"></script>
+    <script type="text/javascript">
+    (function() {
+        win10Mask();
+
+        function win10Mask() {
+            initMask();
+
+            var timer;
+
+            function initMask() {
+
+                $('.mask')
+                    .height($(document).height())
+                    .width($(document).width());
+
+                timer = setTimeout(function() {
+                    fadeToTarget($('#target'));
+                    // console.log("setTimeout");
+                }, 150000);
+
+                $('.mask-close').click(function() {
+                    fadeToTarget($('#target'));
+                    clearTimeout(timer);
+                });
+            }
+
+            /**
+             * 向目标缩小
+             * @param  {jQuery元素} targetJ 消失目标
+             * @return {[type]}         [description]
+             */
+            function fadeToTarget(targetJ) {
+
+                // $('.mask-close').hide(); //隐藏按钮
+                $('.mask-panel').hide();
+
+                //计算目标位置
+                // var targetTop = targetJ.offset().top - $(document).scrollTop() + targetJ.height() / 2 ;
+                // var targetLeft = targetJ.offset().left - $(document).scrollLeft() + targetJ.width() / 2 ;
+                var targetLeft =$(document).width();
+                var targetTop = $(document).height() / 2 - 301;
+
+                // 图片动画效果
+                $('.mask-pic').animate({
+                    width: 0,
+                    height: 0,
+                    top: targetTop,
+                    left: targetLeft
+                }, 800);
+                $('.mask').delay(500).fadeOut(500);
+            }
+        }
+    })();
+    </script>
+</body>
+
+</html>

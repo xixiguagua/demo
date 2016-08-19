@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>单页面路由</title>
+</head>
+<body>
+<div class="container">
+    <nav class="mainMenu">
+        <ul>
+            <li><a href="#/">首页</a></li>
+            <li><a href="#/page1">页面1</a></li>
+            <li><a href="#/page2">页面2</a></li>
+            <li><a href="#/page3">页面3</a></li>
+            <li><a href="#/page4">页面4</a></li>
+            <li><a>首页</a></li>
+            <li><a>页面1</a></li>
+            <li><a>页面2</a></li>
+            <li><a>页面3</a></li>
+            <li><a>页面4</a></li>
+        </ul>
+    </nav>
+    <div class="content"></div>
+</div>
+<!-- //这里有几个带#号的锚链接，点击不同的锚链接url里会产生不同的hash，如#/page1、#/page2等，这个值可以通过location.hash获取。
+同时，每次hash的变化我们还可以通过onhashchange事件来监听，然后做出相应的处理，下面就来看一下具体的实现： -->
+
+<script type="text/javascript">
+	
+	(function(){
+		function router(){};
+		router.prototype.route=function(path,callback){
+			var url=location.hash.slice(1)||'/';
+			//刷新时的处理
+			window.addEventListener('load',function(){
+				if(url==path){
+					callback && callback();
+				}
+			},false);
+
+			//hash变化的处理
+			window.addEventListener('hashchange',function(){
+				url=location.hash.slice(1)||'/';
+				if(url==path){
+					callback && callback();
+				}
+			},false);
+		};
+		window.winrouter=new router();
+		})();
+
+		var content=document.querySelectorAll('.content');
+		//测试函数，可以放Ajax处理
+		function loadContent(text){
+			content[0].innerHTML=text;
+		}
+
+		//path与html里的锚链接对应，'#/page2'-->'/page2'
+		winrouter.route('/',function(){
+			loadContent('首页');
+		});
+		winrouter.route('/page1',function(){
+			loadContent('page1');
+		});
+		winrouter.route('/page2',function(){
+			loadContent('page2');
+		});
+		winrouter.route('/page3',function(){
+			loadContent('page3');
+		});
+		winrouter.route('/page4',function(){
+			loadContent('page4');
+		});
+	
+
+	//history API 实现
+	var href=location.href;
+	var content=document.querySelector('.content');
+	function loadContent(text){
+		content.innerHTML=text;
+	}
+	window.addEventListener('popstate',function(e){
+		if(!e.state) return;
+		loadContent(e.state);
+	})
+	var ul=document.querySelector('ul');
+	var delegate=function(ele,tag,type,handle){
+    	ele.addEventListener(type,function(e){
+    		event=e||window.event;
+    		target=event.target||event.srcElement;
+    		if(target.nodeName.toLowerCase()==tag.toLowerCase()){
+    			handle.call(target);
+    		}
+    	})
+	}
+		delegate(ul,'a','click',function(){
+			var html=this.innerHTML;
+			var url=href+html;
+			loadContent(html);
+			history.pushState(html,html,url);
+		})
+
+	// ul.onclick=function(e){
+	// 	var e=e||window.event;
+	// 	var html=e.target.innerHTML;
+	// 	var url=href+'/'+html;
+	// 	loadContent(html);
+	// 	history.pushState(html,html,url);
+	// }
+
+</script>
+</body>
+</html>

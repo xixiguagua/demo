@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>select mask</title>
+    <style type="text/css">
+    .fade-out-target {
+        position: fixed;
+        margin: auto;
+        top: 50%;
+        right: 0;
+        margin-top: -75px;
+        width: 150px;
+        height: 150px;
+        text-align: center;
+        line-height: 150px;
+        border: 1px solid #000;
+    }
+    
+    .mask {
+        background-color: #000;
+        opacity: 0.75;
+        filter: alpha(opacity=50);
+        position: fixed;
+        margin: auto;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        width: 100%;
+        height: 100%;
+    }
+    
+    .mask-img {
+        position: fixed;
+        margin: auto;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1002;
+    }
+    
+    .mask-panel {
+        position: fixed;
+        margin: auto;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 641px;
+        height: 301px;
+        z-index: 1002;
+    }
+    
+    .click {
+        position: fixed;
+        margin: auto;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 641px;
+        height: 301px;
+        z-index: 1002;
+    }
+    
+    .close {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 40px;
+        width: 40px;
+        background-color: #fff;
+        opacity: 0.5;
+        filter: alpha(opacity=50);
+        cursor: pointer;
+        z-index: 1002;
+    }
+    
+
+
+    .animate {
+        animation: fadeout 1s linear forwards;
+    }
+    
+    @keyframes fadeout {
+        to {
+            transform: scale(0, 0);
+            top: 0;
+            right: -100%;
+        }
+    }
+    </style>
+</head>
+
+<body class="123">
+    <h2>select</h2>
+    <select name="selectmask" id="selectMask">
+        <option value="1">mask</option>
+        <option value="2">wow</option>
+    </select>
+    <div id="target" class="fade-out-target">target here</div>
+    <!-- mask -->
+    <div class="content" id="content">
+        <!--        <div class="mask"></div>
+    <img class="mask-img" src="images/task_1_6_1-(2)_03.jpg" alt="">
+    <div class="mask-panel">
+        <a href="www.baidu.com" id="click" class="click"></a>
+        <div class="close" id="close"></div>
+    </div> -->
+    </div>
+    <!-- mask end -->
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br> end
+    <script type="text/javascript">
+    (function() {
+
+        var single = function(fn) {
+            var result;
+            return function() {
+                return result || (result = fn.apply(this, arguments));
+            }
+        };
+        var Dom = {
+            content: document.querySelector("#content"),
+            select: document.querySelector('#selectMask')
+            
+        }
+
+        var showMask = function() {
+            var html = '<div class="mask"></div>' + '<img class="mask-img" id="mask-img" src="images/task_1_6_1-(2)_03.jpg" alt="">' + '<div class="mask-panel">' + '<a href="www.baidu.com" id="click" class="click"></a>' + '<div class="close" id="close"></div>' + '</div>';
+            Dom.content.innerHTML = html;
+            console.log(1);
+            var timer = setTimeout(function() {
+                fadetoTarget();
+            }, 15000);
+            document.querySelector('#close').addEventListener('click', function() {
+                fadetoTarget();
+                clearTimeout(timer);
+            });
+            return html;
+        }
+
+        var singleMask = single(showMask);
+
+        var fadetoTarget = function() {
+            var mask_img = document.querySelector('#mask-img');
+            document.querySelector('.mask-panel').style.display = 'none';
+            var mask=document.querySelector('.mask');
+            // mask_img.calssList.add('animate');
+            mask_img.animate(
+                // 对应的是@keyframes,{}必须大于1个
+                [{
+                    offset: 0,
+                    transform: 'scale(1, 1)',
+                    top: 0,
+                    right: 0
+
+                }, {
+                    offset: 1,
+                    transform: 'scale(0, 0)',
+                    top: 0,
+                    right: '-100%'
+                }],
+                //对应的是animation-*
+                {
+                    duration: 1000,
+                    easing: 'linear',
+                    fill: 'forwards'
+                }
+            );
+            // var time = setTimeout(function() {
+            //     Dom.content.style.display = 'none';
+            // }, 800);
+            mask.animate([
+            {
+                offset:0,
+                transform: 'scale(1, 1)',
+                    top: 0,
+                    right: 0
+            },{
+                offset:1,
+                transform: 'scale(0, 0)',
+                    top: 0,
+                    right: '-100%'
+            }
+                ],{
+                    delay:300,
+                    duration: 500,
+                    easing: 'linear',
+                    fill: 'forwards'
+                });
+            };
+
+        var winMask = function() {
+            if (Dom.select.value == 2) {
+                singleMask();
+            } else {
+                Dom.select.addEventListener('change', function() {
+                    if (Dom.select.value == 2) {
+                        singleMask();
+                    }
+                })
+            }
+
+        };
+
+
+        winMask();
+    })();
+    </script>
+    </div>
+</body>
+
+</html>
