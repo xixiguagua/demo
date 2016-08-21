@@ -1,423 +1,743 @@
-absolute + margin : auto
-absolute性质的盒子，它的包含块的宽度等于它的盒模型的宽度 + left + right值，包含块的高度同理，盒模型包括margin-box、border-box、padding-box、content-box，而在这个居中方法中，.ele的left + right值是0，width是定值，width所在盒子包括了除了margin-box外的那三个box，margin都是auto值，按照上面那个公式，margin-left + margin-right的值应该等于包含块的宽度 - left的值 - right的值 - width的值，也就是说margin-left + margin-right的值等于除了width所占宽度外的剩下宽度，拥有剩下宽度后，就是平分其宽度，以让左右两边相等，达到居中，
-<div class="wrap">
-  <div class="ele"></div>
-</div>
-html,body{
-  width: 100%;
-  height: 100%;
-  margin: 0;
+/* absolute + margin: auto absolute性质的盒子，它的包含块的宽度等于它的盒模型的宽度 + left + right值，包含块的高度同理，盒模型包括margin-box、border-box、padding-box、content-box，而在这个居中方法中，.ele的left + right值是0，width是定值，width所在盒子包括了除了margin-box外的那三个box，margin都是auto值，按照上面那个公式，margin-left + margin-right的值应该等于包含块的宽度 - left的值 - right的值 - width的值，也就是说margin-left + margin-right的值等于除了width所占宽度外的剩下宽度，拥有剩下宽度后，就是平分其宽度，以让左右两边相等，达到居中， */
+/*  <div class="wrap"> <div class="ele"></div> </div>  */
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
 }
-.wrap{
-  position: relative;
-  width: 100%;
-  height: 100%;
-  background-color: #ccc;
-  .ele{
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
+
+.wrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #ccc;
+    .ele {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        width: 100px;
+        height: 100px;
+        background-color: #333;
+    }
+}
+
+.Absolute-Center {
     margin: auto;
-    width: 100px;
-    height: 100px;
-    background-color: #333;
-  }
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
 }
-.Absolute-Center {  
-  margin: auto;  
-  position: fixed;
-  top: 0; left: 0; bottom: 0; right: 0;  
-}  
+
 
 /* 文本的水平垂直居中 只适合单行文字的水平垂直居中*/
-line-height + text-align:center
 
-共同点是都能把长单词强行断句，不同点是word-wrap:break-word会首先起一个新行来放置长单词，新的行还是放不下这个长单词则会对长单词进行强制断句；而word-break:break-all则不会把长单词放在一个新行里，当这一行放不下的时候就直接强制断句了。
+line-height + text-align:center 
 
-padding填充
-<div class="wrap">
-  <div class="content"></div>
-</div>
-@wrapWidth : 400px;
-.wrap{
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 20px;
-  width: @wrapWidth;
-  height: @wrapWidth;
-  background-color: #ccc;
-}
-.content{
-  @contentWidth : 100px;
-  width: @contentWidth;
-  height: @contentWidth;
-  padding: (@wrapWidth - @contentWidth) / 2;
-  background-color: #333;
-  background-clip:content-box;
-}
 
-margin填充
-<div class="wrap">
-  <div class="ele"></div>
-</div>
-@wrapHeight : 400px;
-  @contenHeight : 100px;
-.wrap{
-  overflow: hidden;
-  width: 100%;
-  height: @wrapHeight;
-  background-color: #ccc;
-  .ele{
+/* white-space:nowrap;强制不换行
+word-wrap是控制换行的。word-break是控制是否断词的。
+共同点是都能把长单词强行断句，不同点是word-wrap:break-word会首先起一个新行来放置长单词，新的行还是放不下这个长单词则会对长单词进行强制断句；而word-break:break-all则不会把长单词放在一个新行里，当这一行放不下的时候就直接强制断句了。  */
+/* padding填充 
+<div class="wrap"> <div class="content"></div> </div>  */
+@wrapWidth : ;400px;
+.wrap {
     margin-left: auto;
     margin-right: auto;
-    margin-top: (@wrapHeight - @contenHeight) / 2;
-    width: 100px;
-    height: @contenHeight;
+    margin-top: 20px;
+    width: @wrapWidth;
+    height: @wrapWidth;
+    background-color: #ccc;
+}
+
+.content {
+    @contentWidth : 100px;
+    width: @contentWidth;
+    height: @contentWidth;
+    padding: (@wrapWidth - @contentWidth) / 2;
     background-color: #333;
-    color: #fff;
-  }
+    background-clip: content-box;
 }
 
-文字水平居中
-<div class="wrap">
-<div class="ele">居中居中居中居中居中居中居中</div>
-</div>
-.wrap{
-  width: 100%;
-  height: 400px;
-  background-color: #ccc;
-  .ele{
-    margin-left: auto;
-    margin-right: auto;
-    width: -webkit-fit-content;
-    width: fit-content;
-    background-color: #333;
-  }
+/* margin填充 <div class="wrap"> <div class="ele"></div> </div> */
+ @wrapHeight : 400px;
+@contenHeight : 100px;
+.wrap {
+    overflow: hidden;
+    width: 100%;
+    height: @wrapHeight;
+    background-color: #ccc;
+    .ele {
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: (@wrapHeight - @contenHeight) / 2;
+        width: 100px;
+        height: @contenHeight;
+        background-color: #333;
+        color: #fff;
+    }
 }
 
- absolute布局50% + -50%
-margin方法和relative方法都需要知道元素的宽高才行(relative方法只知道高也行)，适用于固定式布局，而transform方法则可以不知道元素宽高
-
- <div class="wrap">
-  <div class="ele margin"></div>
-</div>
-
-<div class="wrap">
-  <div class="ele translate"></div>
-</div>
-
-<div class="wrap">
-  <div class="ele relative">
-    <div class="ele-inner"></div>
-  </div>
-</div>
-.wrap{
-  position: relative;
-  width: 100%;
-  height: 200px;
-  border:1px solid;
-  background-color: #ccc;
-  .ele{
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    background-color: #333;
-    &.margin{
-      width: 160px;
-      height: 100px;
-      margin-left: -80px;
-      margin-top: -50px;
+/* 文字水平居中 <div class="wrap"> <div class="ele">居中居中居中居中居中居中居中</div> </div>  */
+.wrap {
+    width: 100%;
+    height: 400px;
+    background-color: #ccc;
+    .ele {
+        margin-left: auto;
+        margin-right: auto;
+        width: -webkit-fit-content;
+        width: -moz-fit-content;
+        width: fit-content;
+        background-color: #333;
     }
-    &.translate{
-      -webkit-transform:translate3d(-50%, -50%, 0);
-      transform:translate3d(-50%, -50%, 0);
-    }
-    .ele-inner{
-      position: relative;
-      left: -50%;
-      top: -50%;
-      width: 100%;
-      height: 100%;
-      background-color: #333;
-    }
-    &.relative{
-      width: 150px;
-      height: 100px;
-      background-color: transparent;
-    }
-  }
 }
 
-
-text-align:center + absolute
-text-aign:center本来是不能直接作用于absolute元素的，但是没有给其left等值的行级absolute元素是会受文本的影响的
-
-适用于图片居中的一个方法
-这种方法主要是利用了一个图片进行占位，以让父容器获得高宽，从而让进行-50%偏移的图片能有一个参照容器作百分比计算。
-优点是可以不知道图片的大小
-<div class="wrap">
-  <p>
-    <img src="http://nec.netease.com/img/s/1.jpg" alt="" />
-    <img src="http://nec.netease.com/img/s/1.jpg" alt="" />
-  </p>  
-</div>
-html,body{
-  width: 100%;
-  height: 100%;
-  margin: 0;
-}
-
-.wrap{
-  position:relative;
-  width: 100%;
-  height: 100%;
-  p{
-    position:absolute;
-    left:50%;
-    top:50%;
-  }
-  img{
-    &:nth-child(1){
-      position:static;
-      visibility:hidden;
-    }
-    &:nth-child(2){
-      position:absolute;
-      right:50%;
-      bottom:50%;
-    }
-  }
-}
-
-float布局上下文下的水平垂直居中
-这种方法的原理，首先是利用float属性将需要居中的元素的父元素.ele的宽度收缩，然后left:50%将.ele的左边和水平中线对齐，这个时候还没居中，还需要将其往回拉自身宽度的50%，于是.ele-inner便是真正需要水平居中的元素，我给它一个position:relative，将其往回拉自身宽度50%就行了。对于垂直方向，依然是先将.ele top:50%到垂直方向中点，但是这时给.ele-inner top:50%是不起作用的，因为如果没给父元素明确高度的话，这个50%是计算不出来的，因此，就有了transform : translate3d(0, -50%, 0)。
-元素可以不定宽
-float + -50%
-<div class="wrap">
-  <div class="ele">
-    <div class="ele-inner">居中居中居中居中居中居中</div>
-  </div>
-</div>
-.wrap{
-  float: left;
-  width: 100%;
-  height: 400px;
-  background-color: #ccc;
-  .ele{
-    float: left;
+/* absolute布局50% + -50% margin方法和relative方法都需要知道元素的宽高才行(relative方法只知道高也行)，适用于固定式布局，而transform方法则可以不知道元素宽高 <div class="wrap"> <div class="ele margin"></div> </div>
+ <div class="wrap"> <div class="ele translate"></div> </div>
+  <div class="wrap"> <div class="ele relative"> <div class="ele-inner"></div> </div> </div>  */
+.wrap {
     position: relative;
-    left: 50%;
-    top: 50%;
-  }
-  .ele-inner{
-    position: relative;
-    left: -50%;
-    -webkit-transform : translate3d(0, -50%, 0);
-    transform : translate3d(0, -50%, 0);
-    background-color: #333;
-    color: #fff;
-  }
+    width: 100%;
+    height: 200px;
+    border: 1px solid;
+    background-color: #ccc;
+    .ele {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        background-color: #333;
+        &.margin {
+            width: 160px;
+            height: 100px;
+            margin-left: -80px;
+            margin-top: -50px;
+        }
+        &.translate {
+            -webkit-transform: translate3d(-50%, -50%, 0);
+            transform: translate3d(-50%, -50%, 0);
+        }
+        .ele-inner {
+            position: relative;
+            left: -50%;
+            top: -50%;
+            width: 100%;
+            height: 100%;
+            background-color: #333;
+        }
+        &.relative {
+            width: 150px;
+            height: 100px;
+            background-color: transparent;
+        }
+    }
 }
 
-margin-bottom : -50%
-<div class="wrap">
-  <div class="placeholder"></div>
-  <div class='content'></div>
-</div>
-.wrap{
-  float: left;
-  width: 100%;
-  height: 400px;
-  background-color: #ccc;
-  @contentHeight : 100px;
-  .placeholder{
+/* text-align:center + absolute 
+text-aign:center本来是不能直接作用于absolute元素的，但是没有给其left等值的行级absolute元素是会受文本的影响的 适用于图片居中的一个方法 这种方法主要是利用了一个图片进行占位，以让父容器获得高宽，从而让进行-50%偏移的图片能有一个参照容器作百分比计算。 优点是可以不知道图片的大小 <div class="wrap"> <p> <img src="http://nec.netease.com/img/s/1.jpg" alt="" /> <img src="http://nec.netease.com/img/s/1.jpg" alt="" /> </p> </div> html, */
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+.wrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    p {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+    }
+    img {
+        &:nth-child(1) {
+            position: static;
+            visibility: hidden;
+        }
+        &:nth-child(2) {
+            position: absolute;
+            right: 50%;
+            bottom: 50%;
+        }
+    }
+}
+
+/* float布局上下文下的水平垂直居中 这种方法的原理，首先是利用float属性将需要居中的元素的父元素.ele的宽度收缩，然后left:50%将.ele的左边和水平中线对齐，这个时候还没居中，还需要将其往回拉自身宽度的50%，于是.ele-inner便是真正需要水平居中的元素，我给它一个position:relative，将其往回拉自身宽度50%就行了。对于垂直方向，依然是先将.ele top:50%到垂直方向中点，但是这时给.ele-inner top:50%是不起作用的，因为如果没给父元素明确高度的话，这个50%是计算不出来的，因此，就有了transform: translate3d(0, -50%, 0)。 元素可以不定宽 float + -50% <div class="wrap"> <div class="ele"> <div class="ele-inner">居中居中居中居中居中居中</div> </div> </div> */
+ .wrap {
+   .parent{
     float: left;
     width: 100%;
-    height: 50%;
-    /*居中元素.content高度一半*/
-    margin-bottom: -(@contentHeight / 2);
-  }
-  .content{
-    position: relative;
-    left: 50%;
-    transform:translate3d(-50%, 0, 0);
-    clear: both;
-    /*演示用，实际不需要定宽*/
-    max-width: 100px;
-    height: @contentHeight;
-    background-color: #333;
-  }
-}
-这种方法是先让占位元素.placeholder占据50%高度，然后给一个居中元素高度一半的负的margin-bottom，然后下面的元素只要跟着摆放就能垂直居中了。水平方向就是利用translate做偏移
-
-IFC布局上下文下的水平垂直居中
-display为inline性质的行级元素的布局。
-<div class="wrap">
-  <div class='placeholder'><!--占位元素，用来作为居中元素的参照物--></div>
-  <div class="ele"></div>
-</div>
-.wrap{
-  width: 100%;
-  height: 400px;
-  /* min-height: 400px; */
-  text-align:center;
-  font-size: 0;
-  background-color: #ccc;
-  .placeholder,
-  .ele{
-    vertical-align: middle;
-    display: inline-block;
-  }
-  .placeholder{
-    overflow: hidden;
-    width: 0;
-    min-height: inherit;
-    height: inherit;
-  }
-  .ele{
-    width: 100px;
-    height: 100px;
-    background-color: #333;
-  }
-}
-行级元素会受到text-align和vertical-align的影响，这里首先是用text-center让inline-block水平居中，然后给一个vertical-align:middle，但是仅仅给vertical-align:middle是不够的，因为此时它还没有vertical-align对齐的参照物，所以就给了一个占位的inline-block，它的高度是100%。对于居中元素不需要定宽高，而且元素根据vertical-align值的不同不仅仅可以实现居中，还可以将其放在上面下面等。缺点是父元素需定高
-
-
-text-align:center + line-height
-居中元素无需定宽高，但缺点是得给父容器一个固定的行高才行。
-<div class="wrap">
-  <div class="ele">居中居中居中居中居中居中</div>
-</div>
-.wrap{
-  text-align: center;
-  line-height: 400px;
-
-  width: 100%;
-  height: 400px;
-  background-color: #ccc;
-  font-size: 0;
-  .ele{
-    line-height: normal;
-    vertical-align: middle;
-    display: inline-block;
-    background-color: #333;
-    font-size: 18px;
-    color: #fff;
-  }
+    height: 400px;
+    background-color: #ccc;
+    .ele {
+        float: left;
+        position: relative;
+        left: 50%;
+        top: 50%;
+    }
+    .ele-inner {
+        position: relative;
+        left: -50%;
+        -webkit-transform: translate3d(0, -50%, 0);
+        transform: translate3d(0, -50%, 0);
+        background-color: #333;
+        color: #fff;
+    }
 }
 
-
-text-align:center + font-size
-<div class="wrap">
-  <div class="ele"></div>
-</div>
-.wrap{
-  text-align: center;
-  font-size: 400px * 0.873;/*约为高度的0.873*/
-
-  margin-left: auto;
-  margin-right: auto;
-  width: 400px;
-  height: 400px;
-  background-color: #ccc;
-  .ele{
-    vertical-align: middle;
-
-    width: 100px;
-    height: 100px;
-    display: inline-block;
-    background-color: #333;
-  }
+/* margin-bottom: -50% <div class="wrap"> <div class="placeholder"></div> <div class='content'></div> </div> */ 
+.wrap {
+    float: left;
+    width: 100%;
+    height: 400px;
+    background-color: #ccc;
+    @contentHeight : 100px;
+    .placeholder {
+        float: left;
+        width: 100%;
+        height: 50%;
+        /*居中元素.content高度一半*/
+        margin-bottom: -(@contentHeight / 2);
+    }
+    .content {
+        position: relative;
+        left: 50%;
+        -webkit-transform: translate3d(-50%, 0, 0);
+                transform: translate3d(-50%, 0, 0);
+        clear: both;
+        /*演示用，实际不需要定宽*/
+        max-width: 100px;
+        height: @contentHeight;
+        background-color: #333;
+    }
 }
 
+/* 这种方法是先让占位元素.placeholder占据50%高度，然后给一个居中元素高度一半的负的margin-bottom，然后下面的元素只要跟着摆放就能垂直居中了。水平方向就是利用translate做偏移 IFC布局上下文下的水平垂直居中 display为inline性质的行级元素的布局。 <div class="wrap"> <div class='placeholder'><!--占位元素，用来作为居中元素的参照物--></div> <div class="ele"></div> </div> */
+ .wrap {
+    width: 100%;
+    height: 400px;
+    /* min-height: 400px; */
+    text-align: center;
+    font-size: 0;
+    background-color: #ccc;
+    .placeholder,
+    .ele {
+        vertical-align: middle;
+        display: inline-block;
+    }
+    .placeholder {
+        overflow: hidden;
+        width: 0;
+        min-height: inherit;
+        height: inherit;
+    }
+    .ele {
+        width: 100px;
+        height: 100px;
+        background-color: #333;
+    }
+}
 
-FFC布局上下文下的水平垂直居中
-父元素、子元素都定义flex：
-<div class="wrap">
-  <div class="ele">
-  居中居中居中居中居中居中居中<br>
-    居中居中居中居中居中居中居中<br>
-    居中居中居中居中居中居中居中<br>
-    居中居中居中居中居中居中居中<br>
-    居中居中居中居中居中居中居中
-  </div>
-</div>
-html,
+/* 行级元素会受到text-align和vertical-align的影响，这里首先是用text-center让inline-block水平居中，然后给一个vertical-align:middle，但是仅仅给vertical-align:middle是不够的，因为此时它还没有vertical-align对齐的参照物，所以就给了一个占位的inline-block，它的高度是100%。对于居中元素不需要定宽高，而且元素根据vertical-align值的不同不仅仅可以实现居中，还可以将其放在上面下面等。缺点是父元素需定高 text-align:center + line-height 居中元素无需定宽高，但缺点是得给父容器一个固定的行高才行。 <div class="wrap"> <div class="ele">居中居中居中居中居中居中</div> </div> */
+ .wrap {
+    text-align: center;
+    line-height: 400px;
+    width: 100%;
+    height: 400px;
+    background-color: #ccc;
+    font-size: 0;
+    .ele {
+        line-height: normal;
+        vertical-align: middle;
+        display: inline-block;
+        background-color: #333;
+        font-size: 18px;
+        color: #fff;
+    }
+}
+
+/* text-align:center + font-size <div class="wrap"> <div class="ele"></div> </div> */
+ .wrap {
+    text-align: center;
+    font-size: 400px * 0.873;
+    /*约为高度的0.873*/
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+    height: 400px;
+    background-color: #ccc;
+    .ele {
+        vertical-align: middle;
+        width: 100px;
+        height: 100px;
+        display: inline-block;
+        background-color: #333;
+    }
+}
+
+/* FFC布局上下文下的水平垂直居中 父元素、子元素都定义flex： <div class="wrap"> <div class="ele"> 居中居中居中居中居中居中居中<br> 居中居中居中居中居中居中居中<br> 居中居中居中居中居中居中居中<br> 居中居中居中居中居中居中居中<br> 居中居中居中居中居中居中居中 </div> </div>  */
 body {
-  width: 100%;
-  height: 100%;
-}
-.wrap {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  background-color: #ccc;
-}
-.wrap .ele {
-  background-color: #333;
-}
-或者父元素定义flex，子元素定义margin:auto：
-.wrap {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  background-color: #ccc;
-}
-.wrap .ele {
-  margin: auto;
-  background-color: #333;
+    width: 100%;
+    height: 100%;
 }
 
+.wrap {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: #ccc;
+}
 
-table布局上下文下的水平垂直居中
-<div class='wrap'>
-    <div class='ele'>
-      <div class="ele-inner">居中居中居中居中居中居中居中居中</div>
-    </div>
-</div>
+.wrap .ele {
+    background-color: #333;
+}
+
+/* 或者父元素定义flex，子元素定义margin:auto： */
+ .wrap {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background-color: #ccc;
+}
+
+.wrap .ele {
+    margin: auto;
+    background-color: #333;
+}
+
+/* table布局上下文下的水平垂直居中 <div class='wrap'> <div class='ele'> <div class="ele-inner">居中居中居中居中居中居中居中居中</div> </div> </div>  */
+.wrap {
+    width: 100%;
+    height: 300px;
+    display: table;
+    background-color: #ccc;
+}
+
+.ele {
+    text-align: center;
+    vertical-align: middle;
+    display: table-cell;
+}
+
+.ele-inner {
+    display: inline-block;
+    background-color: #333;
+}
+/* 
+<div class="wrap"><div class="ele"></div></div> */
 .wrap{
-  width: 100%;
-  height: 300px;
-  display: table;
-  background-color: #ccc;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    width: 100px;
+    height: 100px;
+    background-color: #ff3;
 }
 .ele{
-  text-align:center;
-  vertical-align: middle;
-  display:table-cell;
-}
-
-.ele-inner{
-  display: inline-block;
-  background-color: #333;
-}
-
-
-使用button标签
-<button>
-  <div>
-    居中居中居中居中居中居中<br>
-    居中居中居中居中居中居中<br>
-    居中居中居中居中居中居中<br>
-    居中居中居中居中居中居中<br>
-  </div>  
-</button>
-button{
-  width: 100%;
-  height: 400px;
-  background-color: #cccccc;
-  border-width:0;
-  &:focus{
-    outline:none;
-  }
-  div{
+    width: 10px;
+    height: 10px;
     display: inline-block;
-    font-size: 18px;
-    background-color: #333;
-    color: #fff;
-  }
+    background-color: #f33;
 }
+/* 使用button标签 <button> <div> 居中居中居中居中居中居中<br> 居中居中居中居中居中居中<br> 居中居中居中居中居中居中<br> 居中居中居中居中居中居中<br> </div> </button> */ button {
+    width: 100%;
+    height: 400px;
+    background-color: #cccccc;
+    border-width: 0;
+    &:focus {
+        outline: none;
+    }
+    div {
+        display: inline-block;
+        font-size: 18px;
+        background-color: #333;
+        color: #fff;
+    }
+}
+
+/* 左侧固定右侧自适应宽度的两列布局
+使用绝对定位，将左上角的块放好位置，右边的块设置margin-left
+<div class="row">
+            <div class="left">DIV-A</div>
+            <div class="right">DIV-B</div>
+        </div> */
+
+.row {
+    position: relative;
+}
+.left {
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.right {
+    height: 100px;
+    background-color: blue;
+    margin-left: 100px;
+}
+
+/* 使用浮动，左边的块使用浮动，右边的块使用margin-left
+ */
+.left {
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    float: left;
+}
+.right {
+    height: 100px;
+    background-color: blue;
+    margin-left: 100px;
+}
+
+
+/* 使用 BFC 进行两列布局
+ <div class="left">DIV-A</div>
+ <div class="right">DIV-B</div> */
+ .left{
+    width: 100px;
+    height: 100px;
+    background-color: blue;
+    float: left;
+}
+.right{
+    height: 100px;
+    background-color: yellow;
+    overflow: hidden;
+}
+
+/* 三列布局，其中左侧和右侧的部分宽度固定，中间部分宽度随浏览器宽度的变化而自适应变化
+
+ BFC 
+  <div class="left">DIV-A</div>
+ <div class="right">DIV-B</div>
+ <div class="main">DIV</div> */
+ .left{
+    width: 100px;
+    background-color: red;
+    float: left;
+}
+.right{
+    width: 200px;
+    background-color: blue;
+    float: right;
+}
+.main{
+    background-color: #eee;
+    overflow: hidden;
+}
+/* 
+ 左右两栏采用绝对定位，分别固定于页面的左右两侧，中间的主体栏用左右margin值撑开距离。于是实现了三栏自适应布局。
+ <div class="left">DIV-A</div>
+ <div class="main">DIV</div>
+ <div class="right">DIV-B</div> */
+ .left{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 100px;
+    background-color: #f33;
+ }
+ .rigth{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100px;
+    height: 100px;
+    background-color: #ff3;
+ }
+ .main{
+    margin: 0 100px;
+    height: 100px;
+    background-color: #333;
+ }
+/*  margin负值法 */
+ <div class="main">
+        <div class="body"></div>
+    </div>
+    <div class="left"></div>
+    <div class="right"></div>
+    div{
+    height: 100px;
+}
+.main{
+  float: left;
+  width: 100%;
+}
+.body{
+    margin: 0 100px;
+    background-color: #333;
+}
+.left{
+    width: 100px;
+    background-color: red;
+    margin-left: -100%;
+    float: left;
+}
+.right{
+    width: 100px;
+    background-color: blue;
+    margin-left: -100px;
+        float: left;
+
+}
+/* 高度自适应 */
+ <div class="top"></div>
+    <div class="bottom"></div>
+    .top{
+    height: 100px;
+    width: 100%;
+    background-color: #f33;
+}
+.bottom{
+    position: absolute;
+    top: 100px;
+    bottom: 0;
+    width: 100%;
+    background-color: #333;
+}
+<div class="top"></div>
+    <div class="main"></div>
+    <div class="bottom"></div>
+    .top{
+    height: 100px;
+    width: 100%;
+    background-color: #f33;
+}
+.main{
+    position: absolute;
+    top: 100px;
+    bottom: 100px;
+    background-color: #ff3;
+    width: 100%;
+}
+.bottom{
+    position: absolute;
+    bottom: 0;
+    height: 100px;
+    background-color: #333;
+    width: 100%;
+}
+/* 多列等高
+    <div class="wrap">
+        <div class="top">saaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
+        <div class="main">aaaaaa</div>
+        <div class="bottom">sssssss</div>
+        <div class="right">ddddddd</div>
+    </div> */
+     .wrap{
+        overflow: hidden;
+    }
+.top,.main,.bottom,.right{
+    width: 100px;
+    word-break: break-all;
+    float: left;
+    padding-bottom:10000px;
+    margin-bottom:-10000px;
+}
+.top{
+    background-color: #ff3;
+}
+.main{
+    
+background-color: #333;
+}
+.bottom{
+   
+background-color: #f33;
+}
+.right{
+    background-color: #000;
+}
+
+/* 浮动布局,红色容器中每一行的蓝色容器数量随着浏览器宽度的变化而变化  */
+<body>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </body>
+    body {
+    background-color: red;
+}
+div {
+    width: 150px;
+    height: 100px;
+    margin: 10px;
+    float: left;
+    background-color: blue;
+}
+
+/* 以下6个属性设置在容器上。
+flex-direction:row | row-reverse | column | column-reverse;主轴的方向
+flex-wrap:nowrap | wrap | wrap-reverse;如何换行
+flex-flow:<flex-direction> || <flex-wrap>;flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap
+justify-content:flex-start | flex-end | center | space-between | space-around;主轴上的对齐方式
+align-items: flex-start | flex-end | center | baseline | stretch;
+在交叉轴上如何对齐
+align-content:flex-start | flex-end | center | space-between | space-around | stretch;
+多根轴线的对齐方式 */
+
+/* 以下6个属性设置在项目上。
+order:数值越小，排列越靠前，默认为0
+flex-grow:放大比例，默认为0
+flex-shrink:缩小比例，默认为1
+flex-basis分配多余空间之前，项目占据的主轴空间
+flex:flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto
+align-self:auto | flex-start | flex-end | center | baseline | stretch;
+单个项目有与其他项目不一样的对齐方式 */
+
+body{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+    -webkit-box-pack: start;
+    -webkit-justify-content: flex-start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+div{
+      width: 150px;
+    height: 100px;
+    margin: 10px;
+    background-color: blue;
+}
+
+/* 依据内容宽度自动调整宽度
+box-flex 属性规定框的子元素是否可伸缩其尺寸。
+<div class="container">
+    <div class="left">wd</div>
+    <div class="right">wdwwwww</div>
+</div> */
+
+.container{
+  display:-webkit-box;
+ width:300px;
+ height: 100px;
+}
+.left{
+   
+  -webkit-box-flex:1;
+  background:pink;
+}
+.right{
+  -webkit-box-flex:1;
+  background:lightblue;
+ 
+}
+
+/* 清除浮动
+ clear：left | right | both | none；
+ <div class="clear">
+<div style="float:left"></div>
+<div style="float:right"></div> 
+ </div>
+ <div class="clearfix"><div> */
+ /* 伪类， */
+ .clear:after{
+    content: "";
+    display: block;
+    height: 0;
+    clear: both;
+ }
+ /* 或者空div */
+ .clearfix{
+    clear: both;
+ }
+/* 或者 父元素设置overflow: hidden; */
+.clear{
+    overflow: auto;
+}
+
+/* 去除inline-block元素间间距
+移除空格
+使用 margin 负值
+取消闭合标签
+使用 font-size: 0
+使用 letter-spacing
+使用 word-spacing
+其他 */
+
+/* 栏栅化布局
+<div class="parent">
+<div>A</div>
+<div>A</div>
+<div>A</div>
+<div>A</div>
+<div>A</div>
+</div> */
+div{
+    border: 1px solid;
+}
+div div{
+    margin-left: 10px;
+    margin-top: 10px;
+    text-align: center;
+    width: 200px;
+    height: 200px;
+    border-radius: 20px;
+}
+.parent{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+    height: 440px;
+    width: 660px;
+}
+.parent div:first-child{
+    height: 400px;
+}
+
+/* li超过一定长度，以省略号显示
+ */
+.nowrap li{
+   white-space:nowrap;
+   width:100px;
+   overflow:hidden;
+   text-overflow: ellipsis;
+}}

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+    
+    /*!CSS Document for Taobao HomePage 2010 - Created by YunQian(yunqian@taobao.com) */
+    
+    #main-promo {
+        float: left;
+        border: 1px solid #d8d8d8;
+        overflow: hidden;
+        margin-bottom: 0;
+    }
+    
+    .tb-slide-list li {
+        width: 470px;
+        height: 150px;
+        overflow: hidden;
+        list-style: none;
+    }
+    
+    .tb-slide {
+        position: relative;
+        width: 470px;
+        height: 150px;
+        overflow: hidden;
+    }
+    
+    .tb-slide .tb-slide-list {
+        *font-size: 0;
+    }
+    
+    .tb-slide-triggers {
+        position: absolute;
+        right: 5px;
+        bottom: 5px;
+        height: 18px;
+        padding-top: 2px;
+        z-index: 10;
+    }
+    
+    .tb-slide-triggers li {
+        float: left;
+        width: 16px;
+        height: 16px;
+        background-color: #FCF2CF;
+        border: 1px solid #F47500;
+        color: #D94B01;
+        text-align: center;
+        line-height: 16px;
+        margin-left: 3px;
+        cursor: pointer;
+        font-size: 11px;
+         list-style: none;
+    }
+    
+    .tb-slide-triggers .current {
+        width: 18px;
+        height: 18px;
+        line-height: 18px;
+        background-color: #FFB442;
+        border-color: #f27602;
+        margin-top: -2px;
+        color: #fff;
+        font-weight: bold;
+        overflow: hidden;
+    }
+    
+    
+
+    </style>
+</head>
+
+<body>
+    <h4 id="header" style="margin:4em auto .5em;">margin定位下的滚动播放：</h4>
+    <div id="content">
+        <div id="main-promo">
+            <div class="slide-player tb-slide loading" id="J_Slide">
+                <ol id="tbSlideList" class="tb-slide-list">
+                    <li class="J_DirectPromo">
+                        <a href="##"><img src="http://img02.taobaocdn.com/tps/i2/T1C4dVXdxBXXXXXXXX-470-150.jpg"></a>
+                    </li>
+                    <li class="J_ECPM">
+                        <a href="#"><img width="470" height="150" src="http://img.alimama.cn/bcrm/adboard/picture/2010-12-24/101224112945761.jpg" /></a>
+                    </li>
+                    <li class="J_ECPM">
+                        <a href="#"><img width="470" height="150" src="http://img.alimama.cn/bcrm/adboard/picture/2010-12-23/101223120220401.jpg" /></a>
+                    </li>
+                    <li class="J_ECPM">
+                        <a href="#"><img width="470" height="150" src="http://img.alimama.cn/bcrm/adboard/picture/2010-12-24/101224151708468.jpg"></a>
+                    </li>
+                    <li class="J_DirectPromo">
+                        <a href="##"><img src="http://img01.taobaocdn.com/tps/i1/T1gyBVXgJfXXXXXXXX-470-150.jpg" /></a>
+                    </li>
+                </ol>
+                <ul id="tbSlideTrigger" class="tb-slide-triggers">
+                    <li class="current">1</li>
+                    <li class="">2</li>
+                    <li class="">3</li>
+                    <li class="">4</li>
+                    <li class="">5</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    window.onload = function() {
+        var oMove = document.getElementById("tbSlideList");
+        //运动函数
+        var funMove = function(pos) {
+            var move = function() {
+                var curPos = parseInt(oMove.style.marginTop, 10) || 0;
+                var speed = 40;
+                if (Math.abs(curPos - pos) > speed) {
+                    //判断移动方向
+                    curPos -= ((curPos - pos) / Math.abs(curPos - pos)) * speed;
+                    oMove.style.marginTop = curPos + "px";
+                    setTimeout(move, 30);
+                } else {
+                    oMove.style.marginTop = pos + "px";
+                }
+            };
+            setTimeout(move, 10);
+        };
+        var oClick = document.getElementById("tbSlideTrigger").getElementsByTagName("li");
+        var flag = 0,
+            timeout;
+        for (var i = 0; i < oClick.length; i += 1) {
+            //鼠标经过播放动画
+            oClick[i].onmouseover = function(i) {
+                return function(e) {
+                    clearTimeout(timeout);
+                    oClick[flag].className = "";
+                    this.className = "current";
+                    funMove(-150 * i);
+                    flag = i;
+                }
+            }(i);
+            oClick[i].onmouseout = function(i) {
+                return function(e) {
+                    timeout = setTimeout(step, 4000);
+                }
+            }(i);
+            //定时器播放动画
+            if (i === 0) {
+                var step = function() {
+                    oClick[flag].className = "";
+                    flag = flag >= oClick.length - 1 ? 0 : flag + 1;
+                    oClick[flag].className = "current";
+                    funMove(-150 * flag);
+                    timeout = setTimeout(step, 4000);
+                };
+                setTimeout(step, 4000);
+            }
+        }
+    };
+    </script>
+    
+</body>
+
+</html>

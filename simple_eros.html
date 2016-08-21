@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>cors</title>
+</head>
+
+<body>
+    <!-- cors -->
+    <div id="divCustomers"></div>
+    <script type="text/javascript">
+    // 创建XHR对象
+    function createCORSRequest(method, url) {
+        var xhr = new XMLHttpRequest();
+        if ("withCredentials" in xhr) {
+            // 针对Chrome/Safari/Firefox.
+            xhr.open(method, url, true);
+        } else if (typeof XDomainRequest != "undefined") {
+            // 针对IE
+            xhr = new XDomainRequest();
+            xhr.open(method, url);
+        } else {
+            // 不支持CORS
+            xhr = null;
+        }
+        return xhr;
+    }
+
+    // 辅助函数，用于解析返回的内容
+    function getTitle(text) {
+        return text.match('')[1];
+    }
+
+    // 发送CORS请求
+    function makeCorsRequest() {
+        // bibliographica.org是支持CORS的
+        var url = 'http://www.imooc.com/';
+
+        var xhr = createCORSRequest('GET', url);
+        if (!xhr) {
+            alert('CORS not supported');
+            return;
+        }
+
+        // 回应处理
+        xhr.onload = function() {
+            var text = xhr.responseText;
+            var title = getTitle(text);
+            alert('Response from CORS request to ' + url + ': ' + title);
+        };
+        xhr.headers = { // This is required to stop the
+            "X-Requested-With": "" // server from rejecting the 
+        };
+        xhr.onerror = function() {
+            alert('Woops, there was an error making the request.');
+        };
+
+        xhr.send();
+    }
+
+    makeCorsRequest();
+    </script>
+</body>
+
+</html>

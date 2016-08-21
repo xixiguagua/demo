@@ -1,120 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<title>Document</title>
+    <meta charset="UTF-8">
+    <title>Document</title>
 </head>
 <style>
-	
 </style>
 <script>
-(function(){
+(function() {
 
 
-	var xmlHttp;
-	var completeDiv;
-	var inputFiled;
-	var nameTable;
-	var nameTableBody;
-	function createXMLHttpRequest(){
-		if (window.XMLHttpRequest) {
-		xmlHttp=new XMLHttpRequest();
-		}
-	}
-	function initVars(){
-		inputFiled=document.getElementById("names");
-		completeDiv=document.getElementById("popup");
-		nameTable=document.getElementById("name_table");
-		nameTableBody=document.getElementById("name_table_body");
-	}
-	function findName(){
-		initVars();
-		if (inputFiled.value.length>0) {
-			createXMLHttpRequest();
-			var url="autocomplete?name="+escape(inputFiled.value);
-			xmlHttp.open(url,"GET",true);
-			xmlHttp.onreadystatechange=callback;
-			xmlHttp.send();
-		}
-		else{
-			clearName();
-		}
+        var xmlHttp;
+        var completeDiv;
+        var inputFiled;
+        var nameTable;
+        var nameTableBody;
 
-	}
-	function callnack(){
-		if (xmlHttp.readyState==4) {
-			if (xmlHttp.status==200) {
-				var name=xmlHttp.responseXML.getElementsByTagName("name")[0].firstChild.date;
-				setNames=(xmlHttp.responseXML.getElementsByTagName("name"));
-		}
-		else if (xmlHttp.status==204){
-			clearName();
-		}
-	}
-	function setNames(names){
-		clearName();
-		var size=names.length;
-		setOfsets();
-		var row;
-		var cell;
-		var textNode;
-		for (var i = 0; i < size; i++) {
-			row=document.createElement("tr");
-			cell=document.createElement("td");
-			cell.onMouseout=function(){
-				this.className="mouseover";
-			}
-			cell.onmouseover=function(){
-				this.className="onmouseout";
-			}
-			cell.setAttribute('background','#ffa');
-			ceil.setAttribute('border',0);
-			ceil.onclick=function(populateName(this));
-			 textNode=document.createTextNode(nextNode);
-			 ceil.appendChild(textNode);
-			 row.appendChild(ceil);
-			 nameTableBody.appendChild(row);
-		}
-	}
+        function createXMLHttpRequest() {
+            if (window.XMLHttpRequest) {
+                xmlHttp = new XMLHttpRequest();
+            }
+        }
 
-	function setOfsets(){
-		var end=inputFiled.offsetWidth;
-		var left=calculateOffsetLeft(inputFiled);
-		var top=calculateOffsetTop(inputFiled)+inputFiled.offsetHeight;
-		completeDiv.style.border="#000 1px solid";
-		completeDiv.style.left=left+'px';
-		completeDiv.style.top=top+'px';
-	}
+        function initVars() {
+            inputFiled = document.getElementById("names");
+            completeDiv = document.getElementById("popup");
+            nameTable = document.getElementById("name_table");
+            nameTableBody = document.getElementById("name_table_body");
+        }
 
-	function calculateOffsetLeft(){
-		return calculateOffset(field,'offsetLeft');
-	}
-	function calculateOffsetTop(){
-		return calculateOffset(field,'offsetTop');
-	}
-	function calculateOffset(field,attr){
-		var offset=0;
-		while(field){
-			offset+=field[attr];
-			field=field.offsetParent;
-		}
-		return offset;
-	}
+        function findName() {
+            initVars();
+            if (inputFiled.value.length > 0) {
+                createXMLHttpRequest();
+                var url = "autocomplete?name=" + escape(inputFiled.value);
+                xmlHttp.open(url, "GET", true);
+                xmlHttp.onreadystatechange = callback;
+                xmlHttp.send();
+            } else {
+                clearName();
+            }
 
-	function populateName(){
-		inputFiled.value=ceil.firstChild.nodeValue;
-		clearName();
-	}
-	function clearName(){
-		var ind=nameTableBody.childNodes.length;
-		for(var i=ind-1;i>=0;i--){
-			nameTableBody.removeChild(nameTableBody.childNodes[i]);
-		}
-		completeDiv.style.border='none';
-	}
-})()
+        }
+
+        function callnack() {
+            if (xmlHttp.readyState == 4) {
+                if (xmlHttp.status == 200) {
+                    var name = xmlHttp.responseXML.getElementsByTagName("name")[0].firstChild.date;
+                    setNames = (xmlHttp.responseXML.getElementsByTagName("name"));
+                } else if (xmlHttp.status == 204) {
+                    clearName();
+                }
+            }
+
+            function setNames(names) {
+                clearName();
+                var size = names.length;
+                setOfsets();
+                var row;
+                var cell;
+                var textNode;
+                for (var i = 0; i < size; i++) {
+                    row = document.createElement("tr");
+                    cell = document.createElement("td");
+                    cell.onMouseout = function() {
+                        this.className = "mouseover";
+                    }
+                    cell.onmouseover = function() {
+                        this.className = "onmouseout";
+                    }
+                    cell.setAttribute('background', '#ffa');
+                    ceil.setAttribute('border', 0);
+                    ceil.onclick = function(populateName(this));
+                    textNode = document.createTextNode(nextNode);
+                    ceil.appendChild(textNode);
+                    row.appendChild(ceil);
+                    nameTableBody.appendChild(row);
+                }
+            }
+
+            function setOfsets() {
+                var end = inputFiled.offsetWidth;
+                var left = calculateOffsetLeft(inputFiled);
+                var top = calculateOffsetTop(inputFiled) + inputFiled.offsetHeight;
+                completeDiv.style.border = "#000 1px solid";
+                completeDiv.style.left = left + 'px';
+                completeDiv.style.top = top + 'px';
+            }
+
+            function calculateOffsetLeft() {
+                return calculateOffset(field, 'offsetLeft');
+            }
+
+            function calculateOffsetTop() {
+                return calculateOffset(field, 'offsetTop');
+            }
+
+            function calculateOffset(field, attr) {
+                var offset = 0;
+                while (field) {
+                    offset += field[attr];
+                    field = field.offsetParent;
+                }
+                return offset;
+            }
+
+            function populateName() {
+                inputFiled.value = ceil.firstChild.nodeValue;
+                clearName();
+            }
+
+            function clearName() {
+                var ind = nameTableBody.childNodes.length;
+                for (var i = ind - 1; i >= 0; i--) {
+                    nameTableBody.removeChild(nameTableBody.childNodes[i]);
+                }
+                completeDiv.style.border = 'none';
+            }
+        })()
 </script>
+
 <body>
-	
 </body>
+
 </html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>等高 多列 阴影 文字省略</title>
+    <style type="text/css">
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    
+    .container {
+        overflow: hidden;
+        width: 250px;
+        padding: 20px;
+        box-shadow: -40px 0 20px -20px #eee inset;
+    }
+    
+    .left {
+        float: left;
+        font-size: 0;
+        padding-bottom: 10000px;
+        margin-bottom: -10000px;
+    }
+    
+    img {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .right {
+        margin-left: 100px;
+        padding-left: 5px;
+        padding-right: 5px;
+        word-break: break-all;
+        padding-bottom: 10000px;
+        margin-bottom: -10000px;
+    }
+    
+    .right p {
+        /*   white-space: nowrap; */
+        /* word-break: break-all; */
+        display: -webkit-box;
+        /* //1.设置display类型为-webkit-box */
+        font-size: 14px;
+        line-height: 18px;
+        overflow: hidden;
+        /* //2.设置元素超出隐藏 */
+        text-overflow: ellipsis;
+        /* //3.设置超出样式为省略号 */
+        -webkit-line-clamp: 2;
+        /*  //4.设置2行应用省略 */
+        -webkit-box-orient: vertical;
+        position: relative;
+    }
+    
+    .right .detail {
+        margin-top: 10px;
+    }
+    
+    .detail {
+        overflow: hidden;
+        height: 58px;
+    }
+    /*  .right p::after{
+        content: "...";
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        padding-left: 3px;
+        background-color: #fff;
+    } */
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="left"><img src="images/task_1_6_1-(2)_03.jpg" alt=""></div>
+        <div class="right">
+            <p>sdfhewfhewlgfrhlwgdddddddddddddddddssxxxxxxxxxsssssh</p>
+            <div class="detail">888888888888888888888888888888888888888888888888888888888888888888888888888888</div>
+        </div>
+    </div>
+</body>
+
+</html>

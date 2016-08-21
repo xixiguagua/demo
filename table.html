@@ -1,0 +1,97 @@
+<!-- table 可 vertical-align 属性，将其赋值 middle 即可将其中内容垂直居中。至于水平居中，就可以根据具体情况，使用 text-align: center; 或者对外框 margin: 0 auto; 来实现。
+ 常规属性：
+
+background 是正常的，都可以用。
+text-align、text-indent 等文字相关属性，只对单元格有效，但是可以被继承。 *margin 只在 table 上有效，对 td th 等等无效。
+border 只在 table、td、th、caption 有效，对 thead、tbody、tfoot、tr 等无效。
+padding、overflow、vertical-align 只对单元格有效。
+width 在表格、单元格和列上有效，重要的布局属性
+height 在表格、行和单元格上有效，但其值只能作为最小高度，因为内容总是会扩大单元格、行以及表格的高度。如果使用 display 将其改成 block 块级元素，就会溢出而不会扩大。
+
+重点属性：
+vertical-align 用在单元格里很神奇的效果，有三种比较特殊的设置方式：top、middle 和 bottom，很明显对应表格顶部、中间和底部。神奇之处就在于，它们会将单元格里面的多行内容都进行对齐。这也是上面居中实现的原理。与之相媲美的 position 方式的居中会脱离文档流，而这种方式却不会。
+border-collapse 设置 table 是分开的边框还是合并起来。table 默认的样式是分开的边框，table 和里面 th、td 的边框之间有缝隙。而设置 border-collapse:collapse; 可以去掉空隙，合并起来。
+border-spacing 设置边框之间缝隙的宽度，在 table 默认或者 border-collapse:separate; 的时候才有效。border-spacing 具体 demo
+caption-side 设置 table caption 的位置，有两个值 top（默认）和 bottom，分别放在表格的上面和下面。
+empty-cells 设置是否显示表格中的空单元格，有两个值 show（默认）和 hide，兼容性 IE8+ 。注意，使用此方法的 hide 隐藏，不会像 display 那样，从文档流中去掉，而是像 visibility:hidden; 那样，保留占位。empty-cells 具体 demo
+table-layout 设置 table 
+
+设置 width:auto; 和默认的 table-layout: auto; 即可创建根据内容宽度收缩到最小的 table 模式。
+设置 width:400px; (某固定值）和默认的 table-layout: auto; 即可创建 固定的 table 宽度的 根据列数和内容长度按照比例计算出来的 table 模式。
+设置 width:80%; 和默认的 table-layout: auto; 即可创建根据外框宽度拉伸，内部列按照算法自动计算宽度的模式。
+设置 width:400px;（固定值）和 table-layout: fixed; 即可创建根据表格宽度、列宽度、表格边框宽度、单元格间距计算出来的宽度，与内容无关，不再根据内容长度等进行调整。因此性能也比较好，浏览器不需要重复等待计算渲染。这样，为 th、td 设置的 width 宽度，不会自动调整。 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>alibaba</title>
+    <style>
+    table {
+        width: 100%;
+        table-layout: fixed;
+        border: 1px solid #ddd;
+        border-collapse: collapse;
+    }
+    
+    table th {
+        background-color: #f0f0f0;
+        text-align: left;
+        font-weight: normal;
+        font-size: 16px;
+    }
+    
+    table td {
+        /* background-color: #fff; */
+        border-bottom: 1px solid #ddd;
+        cursor: default;
+    }
+    
+    table th,
+    table td,
+    table caption {
+        padding: 10px;
+    }
+    
+    tbody tr:nth-child(even) {
+        background-color: #ccc;
+    }
+    </style>
+</head>
+
+<body>
+    <table summary="杭州西湖三日游出行的人员名单，包括旅客编号、姓名、联系电话、和地址">
+        <caption>杭州西湖三日游出行的人员</caption>
+        <thead>
+            <th scope="col">编号</th>
+            <th scope="col">姓名</th>
+            <th scope="col">联系电话</th>
+            <th scope="col">地址</th>
+        </thead>
+        <tfoot>
+            <td colspan="4">领队签字：</td>
+        </tfoot>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>jamson</td>
+                <td>123-2343</td>
+                <td>xx市xx区</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>jamson</td>
+                <td>123-2343</td>
+                <td>xx市xx区</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>jamson</td>
+                <td>123-2343</td>
+                <td>xx市xx区</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>

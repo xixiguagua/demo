@@ -36,23 +36,23 @@ if (window.Notification) {
                 body: "How are you",
                 icon: "img.jpg"
             });
-            notification.onclick = function(){
-            	text.innerHTML="hello"+new Date().toString().split(" ")[0]+"!";
-            	notification.close();
+            notification.onclick = function() {
+                text.innerHTML = "hello" + new Date().toString().split(" ")[0] + "!";
+                notification.close();
             }
         }
     };
-    button.onclick = function(){
-    	if (Notification.permission=="granted") {
-    		popNotice();
-    	} else if (Notification.permission!="denied") {
-    		Notification.requestPermission(function(permission){
-    			popNotice();
-    		});
-    	}
+    button.onclick = function() {
+        if (Notification.permission == "granted") {
+            popNotice();
+        } else if (Notification.permission != "denied") {
+            Notification.requestPermission(function(permission) {
+                popNotice();
+            });
+        }
     };
 } else {
-	alert("浏览器不支持Notification");
+    alert("浏览器不支持Notification");
 }
 
 

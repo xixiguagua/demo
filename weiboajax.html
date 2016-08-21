@@ -1,8 +1,8 @@
 <!-- <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Document</title>
+  <meta charset="UTF-8">
+  <title>Document</title>
 </head>
 
 <body>
@@ -19,7 +19,7 @@ $(function(){
       //获取返回信息
       if(msg!='' && msg!=null)
       {
-      	console.log(msg);
+        console.log(msg);
         html += "<ul>";
         html += "<li>ID:"+msg.data.id+"</li>";
         html += "<li>昵称:"+msg.data.screen_name+"</li>";
@@ -48,96 +48,97 @@ $(function(){
 </script>
 </body>
 </html> -->
-
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<title>Document</title>
-	<meta keyword="返回最新的公共微博">
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <meta keyword="返回最新的公共微博">
 </head>
 
 <body>
-<!-- <script src="jquery-2.2.2.min.js"></script> -->
-<script>
-// $(function(){
-// 	var timer=setInterval(function() {
-		
-// 	  var html="";
-//   $.ajax({
-//     url:'https://api.weibo.com/2/statuses/public_timeline.json?source=4229079448',   //参数与v1接口相似
-//     type:'GET',
-//     dataType:'jsonp',   //[重要],默认是支持jsonp格式数据的返回可解决跨域问题；
-//     cache:false,
-//     success:function(msg){
-//       //获取返回信息
-//       if(msg!='' && msg!=null)
-//       {
-//       	console.log(msg);
-//         html += "<ul>";
-//         html += "<li>ID:"+msg.data.statuses[0].id+"</li>";
-//         html += "<li>时间:"+msg.data.statuses[0].created_at+"</li>";
-//         html += "<li>源:"+msg.data.statuses[0].source+"</li>";
-//         html += "<li>文本:"+msg.data.statuses[0].text+"</li>";
-//         html += "<li>用户名:"+msg.data.statuses[0].user.name+"</li>";
-//         html += "<li>转发数:"+msg.data.statuses[0].reposts_count+"</li>";
-//         html +="</ul>";
-//         document.write(html);
+    <!-- <script src="jquery-2.2.2.min.js"></script> -->
+    <script>
+    // $(function(){
+    //  var timer=setInterval(function() {
 
-//       }
+    //    var html="";
+    //   $.ajax({
+    //     url:'https://api.weibo.com/2/statuses/public_timeline.json?source=4229079448',   //参数与v1接口相似
+    //     type:'GET',
+    //     dataType:'jsonp',   //[重要],默认是支持jsonp格式数据的返回可解决跨域问题；
+    //     cache:false,
+    //     success:function(msg){
+    //       //获取返回信息
+    //       if(msg!='' && msg!=null)
+    //       {
+    //        console.log(msg);
+    //         html += "<ul>";
+    //         html += "<li>ID:"+msg.data.statuses[0].id+"</li>";
+    //         html += "<li>时间:"+msg.data.statuses[0].created_at+"</li>";
+    //         html += "<li>源:"+msg.data.statuses[0].source+"</li>";
+    //         html += "<li>文本:"+msg.data.statuses[0].text+"</li>";
+    //         html += "<li>用户名:"+msg.data.statuses[0].user.name+"</li>";
+    //         html += "<li>转发数:"+msg.data.statuses[0].reposts_count+"</li>";
+    //         html +="</ul>";
+    //         document.write(html);
 
-//       else
-//       {
-//         alert('调用数据不存在!');
-//       }        
-//     }
-//   });
-// },500);
+    //       }
 
-// });
+    //       else
+    //       {
+    //         alert('调用数据不存在!');
+    //       }        
+    //     }
+    //   });
+    // },500);
+
+    // });
 
 
 
-(function(){
-	function jsonp(url,callback){
-		var callbackName='jsonp_callback_'+Math.round(1000*Math.random());
-		window[callbackName]=function(data){
-		// 	delete window[callbackName];
-		// 	document.body.removeChild(script);
-			callback(data);
-		}
-// 
-		var script=document.createElement('script');
-		var url=url+'&callback='+callbackName;
-		script.setAttribute("src",url);
-		script.setAttribute("type","text/javascript");
-		document.body.appendChild(script);
-	}
-	function list(msg){
-		// alert(msg);
-		console.log(msg)
-		var html='<ul>';
-		// msg=JSON.parse(msg);
-		var message=msg.data.statuses;
-		for(var item in message){
-			html += '<li>ID:'+message[item].id+'</li>';
-        html += '<li>时间:'+message[item].created_at+'</li>';
-        html += '<li>源:'+message[item].source+'</li>';
-        html += '<li>文本:'+message[item].text+'</li>';
-        html += '<li>用户名:'+message[item].user.name+'</li>';
-        html += '<li>转发数:'+message[item].reposts_count+'</li>';
-		}
-		html+='</ul>';
-		 document.body.innerHTML=html;
-		}
-jsonp('https://api.weibo.com/2/statuses/public_timeline.json?source=4229079448',list);
-var timer=setInterval(function(){jsonp('https://api.weibo.com/2/statuses/public_timeline.json?source=4229079448',list)},1000);
-	
-})()
+    (function() {
+        function jsonp(url, callback) {
+            var callbackName = 'jsonp_callback_' + Math.round(1000 * Math.random());
+            window[callbackName] = function(data) {
+                    //  delete window[callbackName];
+                    //  document.body.removeChild(script);
+                    callback(data);
+                }
+                // 
+            var script = document.createElement('script');
+            var url = url + '&callback=' + callbackName;
+            script.setAttribute("src", url);
+            script.setAttribute("type", "text/javascript");
+            document.body.appendChild(script);
+        }
 
-</script>
-<!--  <script type="text/javascript">
+        function list(msg) {
+            // alert(msg);
+            console.log(msg)
+            var html = '<ul>';
+            // msg=JSON.parse(msg);
+            var message = msg.data.statuses;
+            for (var item in message) {
+                html += '<li>ID:' + message[item].id + '</li>';
+                html += '<li>时间:' + message[item].created_at + '</li>';
+                html += '<li>源:' + message[item].source + '</li>';
+                html += '<li>文本:' + message[item].text + '</li>';
+                html += '<li>用户名:' + message[item].user.name + '</li>';
+                html += '<li>转发数:' + message[item].reposts_count + '</li>';
+            }
+            html += '</ul>';
+            document.body.innerHTML = html;
+        }
+        jsonp('https://api.weibo.com/2/statuses/public_timeline.json?source=4229079448', list);
+        var timer = setInterval(function() {
+            jsonp('https://api.weibo.com/2/statuses/public_timeline.json?source=4229079448', list)
+        }, 1000);
+
+    })()
+    </script>
+    <!--  <script type="text/javascript">
         function list(msg){
         // alert(msg);
         console.log(msg)
@@ -158,4 +159,5 @@ var timer=setInterval(function(){jsonp('https://api.weibo.com/2/statuses/public_
     </script>
 <script type="text/javascript" src="https://api.weibo.com/2/statuses/public_timeline.json?source=4229079448&callback=list"></script> -->
 </body>
+
 </html>

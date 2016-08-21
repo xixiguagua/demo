@@ -78,8 +78,6 @@
         z-index: 1002;
     }
     
-
-
     .animate {
         animation: fadeout 1s linear forwards;
     }
@@ -161,7 +159,7 @@
         var Dom = {
             content: document.querySelector("#content"),
             select: document.querySelector('#selectMask')
-            
+
         }
 
         var showMask = function() {
@@ -183,7 +181,7 @@
         var fadetoTarget = function() {
             var mask_img = document.querySelector('#mask-img');
             document.querySelector('.mask-panel').style.display = 'none';
-            var mask=document.querySelector('.mask');
+            var mask = document.querySelector('.mask');
             // mask_img.calssList.add('animate');
             mask_img.animate(
                 // 对应的是@keyframes,{}必须大于1个
@@ -209,25 +207,23 @@
             // var time = setTimeout(function() {
             //     Dom.content.style.display = 'none';
             // }, 800);
-            mask.animate([
-            {
-                offset:0,
+            mask.animate([{
+                offset: 0,
                 transform: 'scale(1, 1)',
-                    top: 0,
-                    right: 0
-            },{
-                offset:1,
+                top: 0,
+                right: 0
+            }, {
+                offset: 1,
                 transform: 'scale(0, 0)',
-                    top: 0,
-                    right: '-100%'
-            }
-                ],{
-                    delay:300,
-                    duration: 500,
-                    easing: 'linear',
-                    fill: 'forwards'
-                });
-            };
+                top: 0,
+                right: '-100%'
+            }], {
+                delay: 300,
+                duration: 500,
+                easing: 'linear',
+                fill: 'forwards'
+            });
+        };
 
         var winMask = function() {
             if (Dom.select.value == 2) {

@@ -1,42 +1,239 @@
-
 //参数为对应顶点的xy坐标轴，这是个三角形
-.path{
-	clip-path: polygon(5px 10px, 16px 3px,16px 17px)
+.path {
+    clip-path: polygon(5px 10px, 16px 3px, 16px 17px)
 }
+
 //引用内联SVG
-.element { clip-path: polygon(0 100%, 0 0, 100% 0, 80% 100%); }
-.element { clip-path: url("#clip-shape"); }
+.element {
+    clip-path: polygon(0 100%, 0 0, 100% 0, 80% 100%);
+}
+
+.element {
+    clip-path: url("#clip-shape");
+}
+
 //完整版
 .element {
-  -webkit-clip-path: polygon(0 100%, 0 0, 100% 0, 80% 100%);
-  clip-path: polygon(0 100%, 0 0, 100% 0, 80% 100%);
-  -webkit-clip-path: url("#clip-shape"); /* 在Webkit或Blink浏览器中需要添加，如果你只使用内联SVGclipping path，而不是CSS clip-path的话 */
-  clip-path: url("#clip-shape");
+    -webkit-clip-path: polygon(0 100%, 0 0, 100% 0, 80% 100%);
+    clip-path: polygon(0 100%, 0 0, 100% 0, 80% 100%);
+    -webkit-clip-path: url("#clip-shape");
+    /* 在Webkit或Blink浏览器中需要添加，如果你只使用内联SVGclipping path，而不是CSS clip-path的话 */
+    clip-path: url("#clip-shape");
 }
+
 //写在HTML中
-<svg width="0" height="0">
-<defs>
-<clipPath id="clip-shape" clipPathUnits="objectBoundingBox">
-<polygon points="0 1,0 0,1 0,0.8 1"/>
-</clipPath>
-</defs>
-</svg>
-//创建一个响应式的SVG裁剪路径
+<svg width="0" height="0"> <defs> <clipPath id="clip-shape" clipPathUnits="objectBoundingBox"> <polygon points="0 1,0 0,1 0,0.8 1"/> </clipPath> </defs> </svg> //创建一个响应式的SVG裁剪路径
+
 /* 设置SVG的width和height为0；
 在SVG中，为clipPath元素设置一个ID，以便被CSS引用。内联或外部的SVG都可以，注意浏览器支持问题；
 重复使用多边形CSSclip-path的百分比坐标值。只需将它们除以100，然后作为无单位的多边形顶点添加到SVG中。
 设置clipPathUnits属性的值为objectBoundingBox，这样clipping path就继承了引用了它的HTML元素的边界。 */
+
 //css3实现三角
-.test{width:0; height:0; border-width:20px 10px; border-style:solid; border-color:#ff3300 #ff3300 #ffffff #ffffff;}
+.test {
+    width: 0;
+    height: 0;
+    border-width: 20px 10px;
+    border-style: solid;
+    border-color: #ff3300 #ff3300 #ffffff #ffffff;
+}
+
 //梯形
-.test{width:10px; height:10px; border:10px solid; border-color:#ff3300 #ffffff #ffffff #ffffff;}
+.test {
+    width: 10px;
+    height: 10px;
+    border: 10px solid;
+    border-color: #ff3300 #ffffff #ffffff #ffffff;
+}
+
 //模拟圆角
-.box{width:500px;}
-.top{border-bottom:3px solid; border-top-color:#cc0000; border-bottom-color:#cc0000; border-left:3px dotted transparent; border-right:3px dotted transparent;}
-.center{padding:10px 20px; color:white; font-size:14px; background:#cc0000;}
-.bot{border-top:3px solid; border-top-color:#cc0000; border-bottom-color:#cccccc; border-left:3px dotted transparent; border-right:3px dotted transparent;}
+.box {
+    width: 500px;
+}
+
+.top {
+    border-bottom: 3px solid;
+    border-top-color: #cc0000;
+    border-bottom-color: #cc0000;
+    border-left: 3px dotted transparent;
+    border-right: 3px dotted transparent;
+}
+
+.center {
+    padding: 10px 20px;
+    color: white;
+    font-size: 14px;
+    background: #cc0000;
+}
+
+.bot {
+    border-top: 3px solid;
+    border-top-color: #cc0000;
+    border-bottom-color: #cccccc;
+    border-left: 3px dotted transparent;
+    border-right: 3px dotted transparent;
+}
+
+
 /* <div class="box">
     <div class="top"></div>
     <div class="center"></div>
     <div class="bot"></div>
 </div> */
+
+自适应椭圆
+.example3{
+    width:200px;
+    height: 150px;
+    border-radius:50%;
+    background: #8BC34A;
+}
+
+自适应的半椭圆:沿横轴劈开的半椭圆
+.example4{
+    width:200px;
+    height: 150px;
+    border-radius: 50% / 100% 100% 0 0;
+    background: #8BC34A;
+}
+
+自适应的半椭圆:沿纵轴劈开的半椭圆
+.example5{
+    width:200px;
+    height: 150px;
+    border-radius: 100% 0 0 100% / 50%;
+    background: #8BC34A;
+}
+
+四分之一椭圆
+.example6{
+    width:160px;
+    height: 100px;
+    border-radius: 100% 0 0 0;
+    background: #8BC34A;
+}
+
+平行四边形
+.example7 {
+    width:200px;
+    height: 100px;
+    position: relative;
+    left: 100px;
+    line-height: 100px;
+    text-align: center;
+    font-weight: bolder;
+}
+.example7::before {
+   content: ''; /* 用伪元素来生成一个矩形 */
+　　position: absolute;
+　　top: 0; right: 0; bottom: 0; left: 0;
+　　z-index: -1;
+　　transform: skew(45deg);
+　　background: #8BC34A;
+}
+
+菱形
+.example8 {
+    width:140px;
+    height: 140px;
+    position: relative;
+    left: 100px;
+    line-height: 100px;
+    text-align: center;
+    font-weight: bolder;
+}
+.example8::before {
+    content: ''; 
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    z-index: -1;
+    transform: rotate(45deg);
+    background: #8BC34A;
+}
+
+菱形图片
+<div class="picture">
+    <img src="./imgs/7.jpg">
+ </div>
+.picture {
+    width: 200px;
+    transform: rotate(45deg);
+    overflow: hidden;
+    margin: 50px;
+}
+.picture img {
+    max-width: 100%;
+    transform: rotate(-45deg) scale(1.42);
+    z-index: -1;
+    position: relative;
+}
+
+简单的饼图
+.pie{
+    width:140px;
+    height: 140px;
+    background: #8BC34A;
+    border-radius: 50%;
+    background-image: linear-gradient(to right,transparent 50%,#655 0);
+}
+.pie::before{
+    content: '';
+    display: block;
+    margin-left: 50%;
+    height: 100%;
+    border-radius: 0 100% 100% 0 / 50%;
+    background-color: inherit;
+    transform-origin: left;
+    transform: rotate(.1turn);/*10%*/
+    transform: rotate(.2turn);/*20%*/
+    transform: rotate(.3turn);/*30%*/
+}
+
+在参数中规定角度。turn是圈，1turn = 360deg；另外还有弧度rad，2nrad = 1turn = 360deg。如，transform:rotate(2turn); //旋转两圈
+
+此方法显示 0 到 50% 的比率时运作良好，但如果我们尝试显示 60% 的比率时（比如指定旋转值为 .6turn 时），会出现问题。解决方法：使 用上述技巧的一个反向版本来实现这个范围内的比率：设置一个棕色的伪 元素，让它在 0 至 .5turn 的范围内旋转。因此，要得到一个 60% 比率的饼 图，伪元素的代码可能是这样的：
+.pie2{
+    width:140px;
+    height: 140px;
+    background: #8BC34A;
+    border-radius: 50%;
+    background-image: linear-gradient(to right,transparent 50%,#655 0);
+}
+.pie2::before{
+    content: '';
+    display: block;
+    margin-left: 50%;
+    height: 100%;
+    border-radius: 0 100% 100% 0 / 50%;
+    background: #655;/*当范围大于50%时,需要改变伪元素的背景颜色为#655;*/
+    transform-origin: left;
+    transform: rotate(.1turn);
+}
+
+用 CSS 动画来实现一个饼图从 0 变化到 100% 的动画，从而得到一个炫酷的进度指示器
+.pie3 {
+    width:140px;
+    height: 140px;
+    border-radius: 50%;
+    background: yellowgreen;
+    background-image: linear-gradient(to right, transparent 50%, currentColor 0);
+    color: #655;
+}
+ 
+.pie3::before {
+    content: '';
+    display: block;
+    margin-left: 50%;
+    height: 100%;
+    border-radius: 0 100% 100% 0 / 50%;
+    background-color: inherit;
+    transform-origin: left;
+    animation: spin 3s linear infinite, bg 6s step-end infinite;
+}
+ 
+@keyframes spin {
+    to { transform: rotate(.5turn); }
+}
+@keyframes bg {
+    50% { background: currentColor; }
+}
